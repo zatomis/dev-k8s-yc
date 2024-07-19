@@ -15,7 +15,6 @@ spec:
     spec:
       containers:
       - image: nginx
-#        imagePullPolicy: Never
         name: nginx-l2-devman
         ports:
         - containerPort: 80
