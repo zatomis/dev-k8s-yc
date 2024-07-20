@@ -2,6 +2,7 @@
 *.ss#*
 .#*.ss
 
+*.idea
 *.scm~
 *.scm#*
 .#*.scm
