@@ -47,4 +47,22 @@ spec:
     nodePort: 30291
   type: NodePort
 ```
+## Как подготовить dev окружение
+Для взаимодействия с БД необходимо получить и использовать файл сертификата.
+Подключение к базе данных в кластере PostgreSQL. 
+PostgreSQL-хосты с публичным доступом поддерживают только шифрованные соединения. Чтобы использовать их, получите SSL-сертификат:
+```sh
+mkdir -p ~/.postgresql && \
+wget "https://storage.yandexcloud.net/cloud-certs/CA.pem" \
+     --output-document ~/.postgresql/root.crt && \
+chmod 0600 ~/.postgresql/root.crt
+```
+Сертификат будет сохранен в файле ~/.postgresql/root.crt.
+Используем полученный файл `root.crt` при создании раздела secret
+#Имя файла - yc-sirius/edu-reverent-mestorf/Nginx test with secret/secret.yaml
+![img.png](img.png)
 
+Для удобства можно использовать [сервис](https://base64.guru/converter/encode/file)
+
+Сам файл для теста
+#Имя файла - yc-sirius/edu-reverent-mestorf/Nginx test with secret/test_pod.yaml
