@@ -94,3 +94,6 @@ kubectl create -f service.yaml
 ```sh
 kubectl create -f deployment.yaml
 ```
+
+## Пример рабочего образа в яндекс облаке
+[Devman Урок 2. Разверните сайт в кластере](https://edu-reverent-mestorf.sirius-k8s.dvmn.org)
