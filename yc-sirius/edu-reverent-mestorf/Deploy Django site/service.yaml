@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: deploy-yc-django-site
+  namespace: edu-reverent-mestorf
+spec:
+  selector:
+    app: django-site-deploy
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+    nodePort: 30291
+  type: NodePort

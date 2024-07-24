@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-django-site-k8s
+  namespace: edu-reverent-mestorf
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: django-site-deploy
+  template:
+    metadata:
+      labels:
+        app: django-site-deploy
+    spec:
+      containers:
+        - name: my-container-from-docker-hub
+          image: zatomis/k8s-2:32118eb54d6a1c1abf479365c6a134d1094305bb
+          envFrom:
+            - secretRef:
+                name: my-secret
+          ports:
+          - containerPort: 80
+            protocol: TCP
+          volumeMounts:
+            - mountPath: "/root/.postgresql"
+              name: pg-root-cert
+              readOnly: true
+      volumes:
+        - name: pg-root-cert
+          secret:
+            secretName: pg-root-cert-edu-reverent-mestorf
+            defaultMode: 384

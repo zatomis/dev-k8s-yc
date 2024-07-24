@@ -66,3 +66,31 @@ chmod 0600 ~/.postgresql/root.crt
 
 Сам файл для теста
 #Имя файла - yc-sirius/edu-reverent-mestorf/Nginx test with secret/test_pod.yaml
+
+## Пример использования образа для размещения на яндекс К8S
+В качестве примера будем использовать созданный ранее докер образ на [hub.docker.com](https://hub.docker.com/repository/docker/zatomis/k8s-2/general)
+из [репозитория](https://github.com/devmanorg/k8s-test-django).
+1. Создаем раздел сикретов из переменных окружения для функционирования сайта
+```
+kubectl --namespace=edu-reverent-mestorf create secret generic my-secret --from-env-file=.env
+```
+Обратите внимание, что для запуска БД PostgreSQL в переменных окружения нужно указать sslmode=require
+![img_1.png](img_1.png)
+
+2. Создать раздел сикретов для ssl сертификата. Предварительно создав файл-сертификат см. `Как подготовить dev окружение`
+файл dev-k8s-yc/yc-sirius/edu-reverent-mestorf/Deploy Django site/secret.yaml
+![img_2.png](img_2.png)
+```sh
+kubectl create -f secret.yaml
+```
+
+3. Создать сервис для доступа к сайту файл dev-k8s-yc/yc-sirius/edu-reverent-mestorf/Deploy Django site/service.yaml
+![img_3.png](img_3.png)
+```sh
+kubectl create -f service.yaml
+```
+
+4. Создать deploy в облаке яндекс для доступа к сайту файл dev-k8s-yc/yc-sirius/edu-reverent-mestorf/Deploy Django site/deploy.yaml
+```sh
+kubectl create -f deployment.yaml
+```
